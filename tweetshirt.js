@@ -56,3 +56,17 @@ function drawCircle(canvas, context) {
 	context.fillStyle = "lightblue";
 	context.fill();
 }
+
+function updateTweets(tweets) { //callback function, passed an array of tweets
+	var tweetsSelection = document.getElementById("tweets"); //find tweets in html form
+
+	for (var i = 0; i < tweets.length; i++) { //for each tweet
+		tweet = tweets[i]; //get the tweet
+		var option = document.createElement("option"); //make an option element
+		option.text = tweet.text; //set the text of the option element to the tweet
+		option.value = tweet.text.replace("\"", "'"); //and set the value of the option to the tweet, but replace double quotes with single quotes
+
+		tweetsSelection.options.add(option); //take the new option and add it to the tweet selection in the form
+	}
+	tweetsSelection.selectedIndex = 0; //make sure the first tweet is selected
+}
