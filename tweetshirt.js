@@ -5,7 +5,7 @@ window.onload = function() {
 
 function previewHandler() {
 	var canvas = document.getElementById("tshirtCanvas");
-	var context = canvas.getContext("2d");
+	var context = canvas.getContext("2d"); //an object that controls access to the canvas
 	fillBackgroundColor(canvas, context);
 
 	var selectObj = document.getElementById("shape");
@@ -17,6 +17,11 @@ function previewHandler() {
 			drawSquare(canvas, context);
 		}
 	}
+	else if(shape == "circles") {
+		for(var circles = 0; circles < 20; circles++) {
+			drawCircle(canvas, context);
+		}
+	}
 }
 
 function drawSquare(canvas, context) {
@@ -24,7 +29,7 @@ function drawSquare(canvas, context) {
 	var x = Math.floor(Math.random() * canvas.width);
 	var y = Math.floor(Math.random() * canvas.height);
 
-	context.fillStyle = "lightblue";
+	context.fillStyle = "lightblue"; //fillStyle is a property of context, so we have to set it to a value (not call it)
 	context.fillRect(x, y, w, w);
 }
 
@@ -34,4 +39,20 @@ function fillBackgroundColor(canvas, context) {
 	var bgColor = selectObj.options[index].value;
 	context.fillStyle = bgColor;
 	context.fillRect(0,0, canvas.width, canvas.height);
+}
+
+function degreesToRadians(degrees) {
+	return (degrees * Math.PI)/180;
+}
+
+function drawCircle(canvas, context) {
+	var radius = Math.floor(Math.random() * 40); //keeping the max radius size at 40
+	var x = Math.floor(Math.random() * canvas.width);
+	var y = Math.floor(Math.random() * canvas.height);
+
+	context.beginPath();
+	context.arc(x, y, radius, 0, degreesToRadians(360), true);
+
+	context.fillStyle = "lightblue";
+	context.fill();
 }
