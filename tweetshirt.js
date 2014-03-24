@@ -1,7 +1,19 @@
+
+
 window.onload = function() {
 	var button = document.getElementById("previewButton");
 	button.onclick = previewHandler;
-};
+}
+
+function drawBird(canvas, context) {
+	var twitterBird = new Image();
+	twitterBird.src = "twitterBird.png";
+
+	twitterBird.onload = function() {
+		context.drawImage(twitterBird, 20, 120, 70, 70);
+	};
+}
+
 
 function previewHandler() {
 	var canvas = document.getElementById("tshirtCanvas");
@@ -22,6 +34,8 @@ function previewHandler() {
 			drawCircle(canvas, context);
 		}
 	}
+	drawText(canvas, context);
+	drawBird(canvas, context);
 }
 
 function drawSquare(canvas, context) {
@@ -69,4 +83,24 @@ function updateTweets(tweets) { //callback function, passed an array of tweets
 		tweetsSelection.options.add(option); //take the new option and add it to the tweet selection in the form
 	}
 	tweetsSelection.selectedIndex = 0; //make sure the first tweet is selected
+}
+
+function drawText(canvas, context) {
+	var selectObj = document.getElementById("foregroundColor");
+	var index = selectObj.selectedIndex;
+	var fgColor = selectObj[index].value;
+	context.fillStyle = fgColor;
+	context.font = "bold 1em sans-serif";
+	context.textAlign = "left";
+	context.fillText("I saw this tweet", 20, 40)
+
+	selectObj = document.getElementById("tweets");
+	index = selectObj.selectedIndex;
+	var tweet = selectObj[index].value;
+	context.font = "italic 1.2em serif";
+	context.fillText(tweet, 30, 100);
+
+	context.font = "bold 1em sans-serif";
+	context.textAlign = "right";
+	context.fillText("and all I got was this lousy t-shirt!", canvas.width-20, canvas.height-40);
 }
